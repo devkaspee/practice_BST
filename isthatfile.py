@@ -14,39 +14,39 @@ class BST:
 
     def noNodes(self, Node):
         cnt = 1
-        if Node.rightChild != None:
+        if Node.rightChild is not None:
             cnt += self.noNodes(Node.rightChild)
-        if Node.leftChild != None:
+        if Node.leftChild is not None:
             cnt += self.noNodes(Node.leftChild)
         return cnt
+
     def maxNode(self, Node):
         pNode = Node
-        while pNode.rightChild != None:
+        while pNode.rightChild is not None:
             pNode = pNode.rightChild
         return pNode.key
 
     def minNode(self, Node):
         pNode = Node
-        while pNode.leftChild != None:
+        while pNode.leftChild is not None:
             pNode = pNode.leftChild
         return pNode.key
 
-
-    def height(self, Node):
+    def height(self, Node):  # using BFS
         cnt = 0
         queue = []
-        if Node.leftChild != None:
+        if Node.leftChild is not None:
             queue.append(Node.leftChild)
-        if Node.rightChild != None:
+        if Node.rightChild is not None:
             queue.append(Node.rightChild)
 
         while queue:
             newQueue = []
             while queue:
                 NewNode = queue.pop(0)
-                if NewNode.leftChild != None:
+                if NewNode.leftChild is not None:
                     newQueue.append(NewNode.leftChild)
-                if NewNode.rightChild != None:
+                if NewNode.rightChild is not None:
                     newQueue.append(NewNode.rightChild)
             cnt += 1
             queue = newQueue
@@ -62,13 +62,13 @@ class BST:
             if key == pNode.key:
                 return
             elif key > pNode.key:
-                if pNode.rightChild != None:
+                if pNode.rightChild is not None:
                     pNode = pNode.rightChild
                 else:
                     pNode.rightChild = self.getNode(key)
                     return
             elif key < pNode.key:
-                if pNode.leftChild != None:
+                if pNode.leftChild is not None:
                     pNode = pNode.leftChild
                 else:
                     pNode.leftChild = self.getNode(key)
@@ -89,7 +89,6 @@ class BST:
 
     def deleteBST(self, key):
 
-
         pNode = self.root
 
         direct = True  # from left -> True, from light -> False
@@ -105,17 +104,15 @@ class BST:
                 self.root = pNode.rightChild
 
             else:
-                case = True  # True면 왼쪽, False면 오른쪽 서브트리에서 삭제
                 if self.height(pNode.leftChild) == self.height(pNode.rightChild):
                     if self.noNodes(pNode.leftChild) >= self.noNodes(pNode.rightChild):
                         temp = self.maxNode(pNode.leftChild)
-                        case = True
+
                     else:
                         temp = self.minNode(pNode.rightChild)
-                        case = False
+
                 elif self.height(pNode.leftChild) > self.height(pNode.rightChild):
                     temp = self.maxNode(pNode.leftChild)
-                    case = True
 
                 else:
                     temp = self.minNode(pNode.rightChild)
@@ -123,7 +120,6 @@ class BST:
                 self.deleteBST(temp)
                 self.root.key = temp
                 return
-
 
         qNode = pNode.rightChild if key > pNode.key else pNode.leftChild
 
@@ -148,21 +144,18 @@ class BST:
                     else:
                         pNode.rightChild = qNode.leftChild
                 else:
-                    case = True # True면 왼쪽, False면 오른쪽 서브트리에서 삭제
                     if self.height(qNode.leftChild) == self.height(qNode.rightChild):
                         if self.noNodes(qNode.leftChild) >= self.noNodes(qNode.rightChild):
                             temp = self.maxNode(qNode.leftChild)
-                            case = True
+
                         else:
                             temp = self.minNode(qNode.rightChild)
-                            case = False
+
                     elif self.height(qNode.leftChild) > self.height(qNode.rightChild):
                         temp = self.maxNode(qNode.leftChild)
-                        case = True
 
                     else:
                         temp = self.minNode(qNode.rightChild)
-                        case = False
 
                     self.deleteBST(temp)
                     qNode.key = temp
@@ -178,16 +171,19 @@ class BST:
                 direct = True
 
 
-bst = BST()
+if __name__ == "__main__":
 
-insert = [40, 11, 77, 33, 20, 90, 99, 70, 88, 80, 66, 10, 22, 30, 44, 55, 50, 60, 100]
-for i in range(len(insert)):
-    bst.insertBST(insert[i])
+    bst = BST()
 
-bst.inorder()
-print()
-insert.reverse()
-for i in range(len(insert)):
-    bst.deleteBST(insert[i])
-    bst.inorder()
-    print()
+    cin = [40, 11, 77, 33, 20, 90, 99, 70, 88, 80, 66, 10, 22, 30, 44, 55, 50, 60, 100]
+    for i in range(len(cin)):
+        bst.insertBST(cin[i])
+        bst.inorder()
+        print()
+
+    cin.reverse()  # upside down input list
+
+    for i in range(len(cin)):
+        bst.deleteBST(cin[i])
+        bst.inorder()
+        print()
