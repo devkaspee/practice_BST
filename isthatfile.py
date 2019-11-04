@@ -187,3 +187,15 @@ if __name__ == "__main__":
         bst.deleteBST(cin[i])
         bst.inorder()
         print()
+    cin.reverse()  # upside down input list
+
+    for i in range(len(cin)):
+        bst.insertBST(cin[i])
+        bst.inorder()
+        print()
+    cin.reverse()  # upside down input list
+
+    for i in range(len(cin)):
+        bst.deleteBST(cin[i])
+        bst.inorder()
+        print()
