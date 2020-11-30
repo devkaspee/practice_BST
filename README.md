@@ -1,5 +1,5 @@
 # practice_BST
-__과제 제출__용 repository입니다.
+__과제 제출__ 용 repository입니다.
 
 > Python으로 구현한 이진탐색트리
 
